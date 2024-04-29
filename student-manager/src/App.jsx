@@ -2,33 +2,12 @@ import { useState } from 'react'
 import './App.css';
 
 function App() {
-  const [students, setStudents] = useState([
-    {
-      studentName: "Ceren",
-      course: "React",
-      instructor: "Orkun  Durmaz",
-      id: "1",
-    },
-    {
-      studentName: "Ege",
-      course: "JavaScript",
-      instructor: "Orkun  Durmaz",
-      id: "2",
-    },
-    {
-      studentName: "Berkay",
-      course: "Node.js",
-      instructor: "Orkun  Durmaz",
-      id: "3",
-    },
-    {
-      studentName: "Barkın",
-      course: "Django",
-      instructor: "Orkun  Durmaz",
-      id: "4",
-    },
-  ]);
+  const [students, setStudents] = useState([ ]);
   const [studentInput,setStudentInput] = useState({name:"",course:"",instructor:""});
+
+   //error states
+  const [studentError, setStudentError] = useState({ name: false, course: false, instructor: false });
+
 
   return (
     <>
@@ -36,20 +15,27 @@ function App() {
       <h2>Student Manager</h2>
       <form action="" className='students'>
         <div className="input">
-          <input type="text" placeholder="name" value={studentInput.name}
+          <input type="text" placeholder="Name" value={studentInput.name}
           onChange={(event) =>
-            setStudents({ ...prevstudentList, name: event.target.value })}/>
-          <p className='input-error'>Enter a valid name</p>
+            setStudentInput({ ...students, name: event.target.value })}/>
+          {studentError.name &&  <p className='input-error'>Enter a valid name</p>}  
           </div>
+          <br />
         <div className="input">
-          <input type="text" placeholder="course"  />
-          <p className='input-error'>Enter a valid course</p>
+          <input type="text" placeholder="Course" value={studentInput.course} 
+          onChange={(event) => 
+          setStudentInput({...students, course: event.target.value})}/>
+          {studentError.course && <p className='input-error'>Enter a valid course</p>}       
           </div>
+          <br />
         <div className="input">
-          <input type="text" placeholder="instructor" />
-          <p className='input-error'>Enter a valid instructor</p>
+          <input type="text" placeholder="Instructor" value={studentInput.instructor} 
+          onChange={(event) =>
+          setStudentInput({...students,instructor : event.target.value})}/>
+          {studentError.instructor && <p className='input-error'>Enter a valid instructor</p>}
           </div>
-        <button>Submit</button>
+          <br />
+        <button>Add Student</button>
       </form>
       <div className="student-list">
         <h3>Student List</h3>
@@ -72,4 +58,4 @@ function App() {
   )
 }
 
-export default App
+export default App ;
