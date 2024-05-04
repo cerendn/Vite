@@ -1,61 +1,47 @@
-import { useState } from 'react'
+import { useState } from 'react';
 import './App.css';
+import Header from './components/Header';
+import StudentList from './components/app/student-list/StudentList';
+import StudentForm from './components/app/student-form/StudentForm';
 
 function App() {
-  const [students, setStudents] = useState([ ]);
-  const [studentInput,setStudentInput] = useState({name:"",course:"",instructor:""});
+  const [studentList, setStudentList] = useState([
+    { studentName: "Barkin Onay Sayin", course: "Onay Teknikleri", instructor: "Hicran Ertugral", id: "001" },
+    { studentName: "Ali Riza Taskiran", course: "JavaScript", instructor: "Buse Ugras", id: "002" },
+    { studentName: "Berkay Turna", course: "React", instructor: "Orun Durmaz", id: "003" },
+    { studentName: "Cenk Kaynak", course: "Html Css", instructor: "Orkun Durmaz", id: "004" },
+  ]);
 
-   //error states
-  const [studentError, setStudentError] = useState({ name: false, course: false, instructor: false });
+  const [studentInput, setStudentInput] = useState({ studentName: "", course: "", instructor: "" });
+  const [studentInputErr, setStudentInputErr] = useState({ studentName: false, course: false, instructor: false });
 
+  const addStudent = (event) => {
+    event.preventDefault();
+
+    setStudentInputErr({ studentName: false, course: false, instructor: false });
+
+    if (studentInput.studentName.trim() && studentInput.course.trim() && studentInput.instructor.trim()) {
+      setStudentList([...studentList, { ...studentInput, id: Date.now().toString() }]);
+      setStudentInput({ studentName: "", course: "", instructor: "" });
+    } else {
+      !studentInput.studentName.trim() && setStudentInputErr(prevStudentInputErr => ({ ...prevStudentInputErr, studentName: true }));
+      !studentInput.course.trim() && setStudentInputErr(prevStudentInputErr => ({ ...prevStudentInputErr, course: true }));
+      !studentInput.instructor.trim() && setStudentInputErr(prevStudentInputErr => ({ ...prevStudentInputErr, instructor: true }));
+    }
+  };
 
   return (
-    <>
     <main>
-      <h2>Student Manager</h2>
-      <form action="" className='students'>
-        <div className="input">
-          <input type="text" placeholder="Name" value={studentInput.name}
-          onChange={(event) =>
-            setStudentInput({ ...students, name: event.target.value })}/>
-          {studentError.name &&  <p className='input-error'>Enter a valid name</p>}  
-          </div>
-          <br />
-        <div className="input">
-          <input type="text" placeholder="Course" value={studentInput.course} 
-          onChange={(event) => 
-          setStudentInput({...students, course: event.target.value})}/>
-          {studentError.course && <p className='input-error'>Enter a valid course</p>}       
-          </div>
-          <br />
-        <div className="input">
-          <input type="text" placeholder="Instructor" value={studentInput.instructor} 
-          onChange={(event) =>
-          setStudentInput({...students,instructor : event.target.value})}/>
-          {studentError.instructor && <p className='input-error'>Enter a valid instructor</p>}
-          </div>
-          <br />
-        <button>Add Student</button>
-      </form>
-      <div className="student-list">
-        <h3>Student List</h3>
-        {students.map(student => {
-          return(
-            <div className='student-card'>
-            <ul>
-            <li> {studentInput.name}  </li>
-            <li> {studentInput.course} </li>
-            <li> {studentInput.instructor}</li>
-          </ul>
-          </div>
-         ) } 
-        )} 
-       
-        
-      </div>
+      <Header title='Student Manager' navElements={['About Us','Profile','Contact']} />
+     <StudentForm 
+  studentInput={studentInput}
+  setStudentInput={setStudentInput}
+  studentInputErr={studentInputErr}
+  addStudent={addStudent}
+/>
+      <StudentList studentList={studentList} />
     </main>
-    </>
-  )
+  );
 }
 
-export default App ;
+export default App;
