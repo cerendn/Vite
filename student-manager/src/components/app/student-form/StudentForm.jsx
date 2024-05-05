@@ -1,14 +1,32 @@
+import { useState } from "react";
 
+const StudentForm = ({ createStudent }) => {
 
-const StudentForm = ({ studentInput, setStudentInput, studentInputErr, addStudent }) => {
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        // Form submit işlemleri burada gerçekleştirilecek
-        addStudent(event);
-    };
+    const [studentInput, setStudentInput] = useState({ studentName: "", course: "", instructor: "" });
+    const [studentInputErr, setStudentInputErr] = useState({ studentName: false, course: false, instructor: false });
+
+    const addStudent = (event) => {
+        event.preventDefault()
+
+        setStudentInputErr({ studentName: false, course: false, instructor: false });
+
+        //hata yoksa
+        if (studentInput.studentName.trim() && studentInput.course.trim() && studentInput.instructor.trim()) {
+            // const newStudent = { ...studentInput, id: Date.now().toString() };
+            createStudent(studentInput); //App.js'den gelen fonksiyon
+
+            //inputlari temizle
+            setStudentInput({ studentName: "", course: "", instructor: "" });
+        }
+        else {
+            !studentInput.studentName.trim() && setStudentInputErr(prevStudentInputErr => ({ ...prevStudentInputErr, studentName: true }));
+            !studentInput.course.trim() && setStudentInputErr(prevStudentInputErr => ({ ...prevStudentInputErr, course: true }));
+            !studentInput.instructor.trim() && setStudentInputErr(prevStudentInputErr => ({ ...prevStudentInputErr, instructor: true }));
+        }
+    }
 
     return (
-        <form onSubmit={handleSubmit} className="student-form">
+        <form action="" className="student-form">
             <div className="input-control">
                 <input
                     type="text"
@@ -36,9 +54,9 @@ const StudentForm = ({ studentInput, setStudentInput, studentInputErr, addStuden
                 />
                 {studentInputErr.instructor && <p className="input-error">Enter a valid instructor!</p>}
             </div>
-            <input type="submit" value="Add Student" />
+            <input type="submit" value="Add Student" onClick={addStudent} />
         </form>
-    );
-};
+    )
+}
 
-export default StudentForm;
+export default StudentForm

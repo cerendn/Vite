@@ -1,4 +1,4 @@
-const StudentCard = (student) => {
+const StudentCard = ({student}) => {
     return(
         <div className="student-card">
                 <ul>
