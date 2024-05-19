@@ -30,3 +30,19 @@ nav a:hover {
   color: palevioletred;
   border-bottom: 2px solid plum;
 }
+.student-list {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+.student-card {
+  background-color: #fbfaf4;
+  color: palevioletred;
+  border: 2px solid #ff1fdd;
+  padding: 20px;
+  margin: 10px;
+}
+.delete-buton {
+  color: #ff1fdd;
+  font-weight: bold;
+}
