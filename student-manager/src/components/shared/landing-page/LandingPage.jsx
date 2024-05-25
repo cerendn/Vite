@@ -3,7 +3,7 @@ import React from "react";
 const LandingPage = () => {
   return (
     <div>
-      <h2>Welcome</h2>
+      <h3>Welcome to Student Manager Platform</h3>
     </div>
   );
 };
