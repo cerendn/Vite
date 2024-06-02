@@ -21,10 +21,11 @@ nav ul {
   display: flex;
   gap: 10px;
 }
-nav a {
+.link {
   color: #fbfaf4;
   cursor: pointer;
   transition: 1.5ms;
+  margin: 0 10px;
 }
 nav a:hover {
   color: palevioletred;

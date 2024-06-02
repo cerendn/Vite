@@ -18,6 +18,9 @@ const Header = () => {
             <Link className="link" to={"/students/new"}>
               New Student
             </Link>
+            <Link className="link" to={"/students/reducer"}>
+              Reducer
+            </Link>
           </li>
         </ul>
       </nav>

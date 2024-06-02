@@ -15,7 +15,7 @@ const NotFoundPage = () => {
     const time = setTimeout(() => {
       setCount(count - 1);
     }, 1000);
-  }, [count, navigate]);
+  }, [count]);
   return (
     <div>
       <h2>Oopps...</h2>

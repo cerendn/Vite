@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const axiosInstance = axios.create({
-  baseUrl: import.meta.env.VITE_API_URL,
+  baseURL: import.meta.env.VITE_API_URL,
   headers: {
     "Content-Type": "application/json",
   },
@@ -12,9 +12,10 @@ export const baseService = {
   get: async (endpoint, configs = {}) => {
     try {
       const response = await axiosInstance.get(endpoint, configs);
+      console.log(response);
       return response;
     } catch (error) {
-      console.error(`GET : ${endpoint} error: ${error} `);
+      console.error(`GET ${endpoint} error: ${error}`);
       throw error;
     }
   },
@@ -23,7 +24,7 @@ export const baseService = {
       const response = await axiosInstance.post(endpoint, data, configs);
       return response;
     } catch (error) {
-      console.error(`POST : $ {endpoint} error: ${error}`);
+      console.error(`POST ${endpoint} error: ${error}`);
       throw error;
     }
   },
@@ -32,7 +33,7 @@ export const baseService = {
       const response = await axiosInstance.delete(endpoint, configs);
       return response;
     } catch (error) {
-      console.error(`DELETE : $ {endpoint} error:${error}`);
+      console.error(`DELETE ${endpoint} error: ${error}`);
     }
   },
 };

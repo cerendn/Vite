@@ -1,5 +1,4 @@
-import axios from "axios";
-import { useState, useEffect, createContext } from "react";
+import { useState } from "react";
 import {
   postStudent,
   deleteStudent as deleteStudentAPI,
@@ -9,9 +8,7 @@ import {
 export const useStudent = () => {
   const [studentList, setStudentList] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  useEffect(() => {
-    getStudents();
-  }, []);
+  const VITE_API_URL = "http://localhost:5050";
   const createStudent = async (student) => {
     try {
       setIsLoading(true);
